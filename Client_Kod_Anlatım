@@ -1,0 +1,45 @@
+1. Kütüphanelerin ve ortam değişkenlerinin yüklenmesi:
+   - `Crypto.Cipher` kütüphanesi AES şifreleme için kullanılıyor.
+   - `subprocess` kütüphanesi, sistem komutlarını çalıştırmak için kullanılıyor.
+   - `dns.resolver` kütüphanesi, DNS sorgularını yapmak için kullanılıyor.
+   - `textwrap` kütüphanesi, metin düzenlemeleri için kullanılıyor.
+   - `base64` kütüphanesi, base64 kodlaması için kullanılıyor.
+   - `re` kütüphanesi, düzenli ifadelerle eşleşmeleri bulmak için kullanılıyor.
+   - `logging` kütüphanesi, günlükleme için kullanılıyor.
+   - `optparse` kütüphanesi, komut satırı argümanlarını ayrıştırmak için kullanılıyor.
+   - `socket` kütüphanesi, DNS sunucusunun doğruluğunu kontrol etmek için kullanılıyor.
+   - `dotenv` kütüphanesi, `.env` dosyasından çevre değişkenlerini yüklemek için kullanılıyor.
+
+2. Anahtarlar ve sabitlerin tanımlanması:
+   - `SECRET_KEY` ve `IV` gibi anahtarlar, `.env` dosyasından yükleniyor.
+   - `TLD`, `NXT_CMD`, `ANSWER` ve `TYPE` gibi sabitler tanımlanıyor.
+   - `BLOCK_SIZE` ve `PADDING` gibi diğer sabitler ayarlanıyor.
+
+3. Şifreleme ve çözme fonksiyonlarının tanımlanması:
+   - `encrypt(string)` fonksiyonu, verilen metni AES ile şifreliyor ve base64 kodlamasıyla döndürüyor.
+   - `decrypt(string)` fonksiyonu, verilen şifreli metni çözüyor ve orijinal metni döndürüyor.
+
+4. URL oluşturma ve bağlantı başlatma fonksiyonlarının tanımlanması:
+   - `formURL(cmd)` fonksiyonu, komutu TLD ile birleştirerek URL oluşturuyor.
+   - `startConnection(host)` fonksiyonu, sahte DNS sunucusuna sorgu yaparak bağlantı başlatıyor ve yanıtı döndürüyor.
+
+5. Komutun ayrıştırılması ve işlenmesi:
+   - `parseCmd(response)` fonksiyonu, DNS yanıtını analiz ederek komutu çıkarıyor.
+   - `processOutput(stdoutput)` fonksiyonu, komut çıktısını işleyerek şifreli hale getiriyor ve base64 kodlamasıyla döndürüyor.
+   - `runCmd(cmd)` fonksiyonu, komutu çalıştırıyor ve çıktıyı işleyerek döndürüyor.
+
+6. DNS sorgularının oluşturulması ve sunucuya çıktının gönderilmesi:
+   - `dnsMakeQuery(url, host)` fonksiyonu, DNS sorgusu oluşturarak sunucuya gönderiyor.
+   - `sendOutputToServer(output, host)` fonksiyonu, çıktıyı parçalara böler ve her parçayı DNS sorgusu olarak sunucuya gönderiyor.
+
+7. DNS sunucusunun doğruluğunun kontrol edilmesi ve ana döngünün başlatılması:
+   - `validate_dns_server(server)` fonksiyonu, DNS sunucusunun doğruluğunu kontrol ediyor.
+   - `start(host)` fonksiyonu, ana döngüyü başlatıyor. Sunucuya bağlanıyor, komutları alıyor, çalıştırıyor, çıktıyı işleyerek sunucuya gönderiyor.
+
+8. `main()` fonksiyonu:
+   - Komut satırı argümanlarını ayrıştırıyor.
+   - Günlükleme düzeyini yapılandırıyor.
+   - DNS sunucusunun doğruluğunu kontrol ediyor.
+   - `start()` fonksiyonunu başlatıyor.
+
+Bu kod, DNS tabanlı bir iletişim yöntemi kullanarak sunucuyla geri dönüşümlü bir kabuk oluşturur. Sunucu, DNS sorgularını kullanarak komutları alır ve çalıştırır, çıktıyı şifreler ve DNS sorguları aracılığıyla geri gönderir.
