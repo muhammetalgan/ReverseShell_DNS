@@ -1,0 +1,39 @@
+1. Gerekli kütüphanelerin ve sabitlerin tanımlanması:
+   - `Crypto.Cipher` kütüphanesi AES şifrelemesi için kullanılır.
+   - `socket` kütüphanesi, ağ soketleri üzerinden iletişim sağlar.
+   - `dnslib` kütüphanesi, DNS kayıtlarını işlemek için kullanılır.
+   - `base64` kütüphanesi, base64 kodlaması için kullanılır.
+   - `time` kütüphanesi, zaman gecikmeleri için kullanılır.
+   - `sys` kütüphanesi, sistem düzeyi işlemleri için kullanılır.
+   - `os` kütüphanesi, işletim sistemi işlemleri için kullanılır.
+   - `BANNER`, `PORT`, `NEXT_COMMAND`, `PROMPT`, `BLOCK_SIZE`, `PADDING`, `EXIT`, `SECRET_KEY` ve `IV` gibi sabitler tanımlanır.
+
+2. Şifreleme ve şifre çözme işlemlerini gerçekleştiren fonksiyonlar tanımlanır: 
+   - `encrypt(string)`: Verilen metni AES ile şifreler ve base64 ile kodlar.
+   - `decrypt(string)`: Verilen şifreli metni çözer ve orijinal metni döndürür.
+
+3. Uygulamanın sonlandırılmasını sağlayan `kill_application()` fonksiyonu tanımlanır.
+
+4. Komut kabuğunu başlatan ve kullanıcıdan girdi alan `spawn_shell(answer, payload)` fonksiyonu tanımlanır.
+
+5. Base64 kodunda kullanılan '-' karakterlerini düzeltmek için `dash_decode(b64_cmd)` fonksiyonu tanımlanır.
+
+6. DNS yanıtlarını almak için `receive_payload(udps)` fonksiyonu tanımlanır.
+
+7. Base64 kodlu komutları çözerek sonuçları yazdıran `print_result(cmd_list)` fonksiyonu tanımlanır.
+
+8. Başlangıç banner'ını yazdıran `shell_intro()` fonksiyonu tanımlanır.
+
+9. Ana işlevi gerçekleştiren `main()` fonksiyonu tanımlanır:
+   - Başlangıç banner'ını yazdırır.
+   - Base64 kodlu komutları depolayan `cmd_list` oluşturulur.
+   - Socket oluşturulur ve belirtilen porta bağlanılır.
+   - İlk komut kabuğu başlatılır ve yanıt gönderilir.
+   - Ana döngüye girilir:
+     - DNS yanıtlarını alır ve komutları işler.
+     - `NEXT_COMMAND` değeri alınırsa, komutları işleyip sonuçları yazdırır.
+     - Diğer durumlarda, komutları `cmd_list` listesine ekler.
+     - Yanıtları gönderir.
+     - `EXIT` değeri `True` ise, uygulamayı sonlandırır.
+
+10. Ana işlevin çağrıldığı kontrolü yapılır ve `main()` fonksiyonu çalıştırılır.
