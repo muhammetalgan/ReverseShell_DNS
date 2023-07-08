@@ -41,5 +41,3 @@
    - Günlükleme düzeyini yapılandırıyor.
    - DNS sunucusunun doğruluğunu kontrol ediyor.
    - `start()` fonksiyonunu başlatıyor.
-
-Bu kod, DNS tabanlı bir iletişim yöntemi kullanarak sunucuyla geri dönüşümlü bir kabuk oluşturur. Sunucu, DNS sorgularını kullanarak komutları alır ve çalıştırır, çıktıyı şifreler ve DNS sorguları aracılığıyla geri gönderir.
